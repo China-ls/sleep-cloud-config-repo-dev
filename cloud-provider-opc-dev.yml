@@ -14,7 +14,7 @@ spring:
     joda-date-time-format: yyyy-MM-dd HH:mm:ss
     date-format: yyyy-MM-dd HH:mm:ss
   datasource:
-    url: jdbc:mysql://paascloud-db-mysql:3306/paascloud_opc?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://cloud-db-mysql:3306/cloud?useUnicode=true&characterEncoding=UTF-8
 
 liquibase:
   change-log: classpath:liquibase/index.xml
@@ -42,23 +42,23 @@ pagehelper:
 security:
   oauth2:
     client:
-      clientId: paascloud-client-opc
-      clientSecret: paascloudClientSecret
-      access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
-      user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
+      clientId: cloud-client-opc
+      clientSecret: cloudClientSecret
+      access-token-uri: http://cloud-gateway:7979/uac/oauth/token
+      user-authorization-uri: http://cloud-gateway:7979/uac/oauth/authorize
     resource:
-      user-info-uri: http://paascloud-gateway:7979/uac/user
+      user-info-uri: http://cloud-gateway:7979/uac/user
       prefer-token-info: false
       jwt:
-        key-uri: http://paascloud-provider-uac:8000/oauth/token_key
+        key-uri: http://cloud-provider-uac:8000/oauth/token_key
 
-paascloud:
+cloud:
   enableSqlLogInterceptor: false
   token:
     interceptor:
       enable: true
   zk:
-    zkAddressList: paascloud-provider-zk:2181
+    zkAddressList: cloud-provider-zk:2181
   qiniu:
     key:
       accessKey: yourQiniuAccessKey
@@ -68,7 +68,7 @@ paascloud:
       publicHost:
       fileMaxSize: 104857600
   oauth2:
-    jwtSigningKey: paascloud
+    jwtSigningKey: cloud
     client:
       id: ${security.oauth2.resource.id}
       accessTokenUrl: ${security.oauth2.client.access-token-uri}
@@ -84,8 +84,8 @@ paascloud:
       enable: true
       reliableMessageConsumer: true
       reliableMessageProducer: false
-      namesrvAddr: paascloud-mq-rocket:9876
-      instanceName: paascloud-provider-opc
+      namesrvAddr: cloud-mq-rocket:9876
+      instanceName: cloud-provider-opc
       consumerGroup: CID_OPC
       producerGroup: PID_OPC
     sms:
